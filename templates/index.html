@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex flex-wrap justify-content-start gap-4">
+    {% for contact in contacts %}
+    <div class="card p-2" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ contact.name }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><i class="bi bi-telephone-fill me-2"></i>{{ contact.phone }}</li>
+        <li class="list-group-item"><i class="bi bi-envelope-fill me-2"></i>{{ contact.email }}</li>
+      </ul>
+      <div class="d-flex justify-content-end px-3 py-2">
+        <a href="{% url 'update-contact' contact.id %}" class="btn-icon" title="Edit">
+          <i class="bi bi-pencil-square"></i>
+        </a>
+        <a href="{% url 'delete-contact' contact.id %}" class="btn-icon delete" title="Delete">
+          <i class="bi bi-trash-fill"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
