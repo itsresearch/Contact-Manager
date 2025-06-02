@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from cmanager.models import Contact
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -8,11 +9,13 @@ def contact_list(request):
     contacts = Contact.objects.all()
     return render(request,'index.html',{'contacts':contacts})
 
+@login_required
 def contact_delete(request, id):
     contacts = Contact.objects.get(id=id)
     contacts.delete()
     return HttpResponseRedirect('/')
 
+@login_required
 def contact_update(request, id):
     contact = Contact.objects.get(id=id)
     
@@ -27,7 +30,7 @@ def contact_update(request, id):
         return HttpResponseRedirect("/")
 
     
-
+@login_required
 def contact_create(request):
     if request.method == "GET":
         return render(request, "create_contact.html")
